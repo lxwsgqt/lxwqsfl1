@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掐丝珐琅艺术知识测试</title>
+    <style>
+        /* 保留原有导航样式不变 */
+        .shouye {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to right, #1a1a1a, #2c1a0a);
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            transform: translateY(0);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        nav ul li a {
+            color: #e0ab57;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav ul li a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            
+            transition: all 0.5s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #fff;
+            background-color: rgba(224, 171, 87, 0.15);
+            transform: translateY(-2px);
+            text-shadow: 0 0 5px rgba(224, 171, 87, 0.7);
+        }
+        
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+
+        /* 新增艺术化知识测试页面样式 */
+        @font-face {
+            font-family: 'FangZheng';
+            src: url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: url('./img/画板-1.jpg') center/cover no-repeat fixed;
+            color: #333;
+            margin: 0;
+            padding: 80px 0 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(248, 243, 230, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            position: relative;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid #e0ab57;
+            border-radius: 5px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .test-header h1 {
+            color: #8b4513;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .test-header h1::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(to right, #e0ab57, #8b4513, #e0ab57);
+            border-radius: 2px;
+        }
+
+        .test-header p {
+            color: #5c3a21;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 25px auto 0;
+            line-height: 1.8;
+        }
+
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: url('https://img.icons8.com/ios-filled/100/e0ab57/chinese-dragon.png') no-repeat;
+            background-size: contain;
+            opacity: 0.1;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #e0ab57;
+            position: relative;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .question h3 {
+            color: #5c3a21;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .question h3::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 15px;
+            height: 15px;
+            background-color: #e0ab57;
+            border-radius: 50%;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: rgba(224, 171, 87, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(224, 171, 87, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            background-color: rgba(224, 171, 87, 0.2);
+            transform: translateX(10px);
+        }
+
+        .option input {
+            margin-right: 15px;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e0ab57;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .option input:checked {
+            background-color: #e0ab57;
+            box-shadow: 0 0 0 3px rgba(224, 171, 87, 0.3);
+        }
+
+        .option input:checked::after {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .option label {
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #333;
+            flex: 1;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 220px;
+            margin: 40px auto 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #e0ab57, #c78c3d);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(224, 171, 87, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(224, 171, 87, 0.6);
+        }
+
+        .submit-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .result-container {
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #e0ab57, #8b4513, #e0ab57);
+        }
+
+        .result-container h2 {
+            color: #5c3a21;
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            color: #e0ab57;
+            font-weight: bold;
+            margin: 25px 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e0ab57, transparent);
+        }
+
+        .feedback {
+            color: #5c3a21;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .restart-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #5c3a21, #3a2414);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3a2414, #5c3a21);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* 艺术装饰元素 */
+        .decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .decoration-1 {
+            top: 50px;
+            left: 50px;
+            background: url('https://img.icons8.com/ios-filled/100/e0ab57/chinese-knot.png') no-repeat;
+            background-size: contain;
+        }
+
+        .decoration-2 {
+            bottom: 50px;
+            right: 50px;
+            background: url('https://img.icons8.com/ios-filled/100/e0ab57/phoenix.png') no-repeat;
+            background-size: contain;
+            transform: rotate(30deg);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .test-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .quiz-container, .result-container {
+                padding: 25px;
+            }
+            
+            .question h3 {
+                font-size: 1.2rem;
+            }
+            
+            .option {
+                padding: 12px 15px;
+            }
+            
+            .decoration {
+                display: none;
+            }
+        }
+		/* 底部样式 */
+		footer {
+		    background: linear-gradient(to right, #1a1a1a, #2c1a0a);
+		    color: #e0ab57;
+		    text-align: center;
+		    padding: 30px 0;
+		    margin-top: 50px;
+		}
+		
+		.footer-content {
+		    max-width: 800px;
+		    margin: 0 auto;
+		}
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 - 保持不变 -->
+    <div class="shouye">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="过度.html">首页</a></li>
+                    <li><a href="历史.html">历史渊源</a></li>
+                    <li><a href="制作流程.html">制作流程</a></li>
+                    <li><a href="纹样设计.html">纹样设计</a></li>
+                    <li><a href="知识测试.html">知识测试</a></li>
+                    <li><a href="制作小游戏.html">制作小游戏</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <!-- 艺术装饰元素 -->
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+
+    <!-- 知识测试内容 -->
+    <div class="container">
+        <div class="test-header">
+            <h1>掐丝珐琅艺术知识测试</h1>
+            <p>探索千年工艺精髓，测试您对掐丝珐琅历史、工艺和文化的了解程度，共15题，每题10分</p>
+        </div>
+
+        <div class="quiz-container" id="quiz">
+            <!-- 问题1 -->
+            <div class="question">
+                <h3>1. 掐丝珐琅工艺最早起源于哪个文明？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1a" value="a">
+                        <label for="q1a">古埃及文明</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1b" value="b">
+                        <label for="q1b">古希腊文明</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1c" value="c">
+                        <label for="q1c">古波斯文明</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1d" value="d">
+                        <label for="q1d">古印度文明</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题2 -->
+            <div class="question">
+                <h3>2. "景泰蓝"这一名称源自中国哪个朝代？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2a" value="a">
+                        <label for="q2a">唐代</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2b" value="b">
+                        <label for="q2b">宋代</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2c" value="c">
+                        <label for="q2c">明代</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2d" value="d">
+                        <label for="q2d">清代</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题3 -->
+            <div class="question">
+                <h3>3. 传统掐丝珐琅制作中，"掐丝"使用的主要材料是什么？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3a" value="a">
+                        <label for="q3a">纯金丝</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3b" value="b">
+                        <label for="q3b">纯银丝</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3c" value="c">
+                        <label for="q3c">镀金银铜丝</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3d" value="d">
+                        <label for="q3d">黄铜丝</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题4 -->
+            <div class="question">
+                <h3>4. 下列哪项不是掐丝珐琅的主要制作工序？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4a" value="a">
+                        <label for="q4a">制胎</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4b" value="b">
+                        <label for="q4b">掐丝</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4c" value="c">
+                        <label for="q4c">点蓝</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4d" value="d">
+                        <label for="q4d">拉坯</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题5 -->
+            <div class="question">
+                <h3>5. 珐琅釉料的主要成分不包括下列哪一项？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5a" value="a">
+                        <label for="q5a">石英</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5b" value="b">
+                        <label for="q5b">长石</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5c" value="c">
+                        <label for="q5c">金属氧化物</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5d" value="d">
+                        <label for="q5d">黏土</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题6 -->
+            <div class="question">
+                <h3>6. 故宫博物院收藏的"掐丝珐琅缠枝莲纹象耳炉"是哪朝代的代表作？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6a" value="a">
+                        <label for="q6a">元代</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6b" value="b">
+                        <label for="q6b">明代宣德年间</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6c" value="c">
+                        <label for="q6c">清代康熙年间</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6d" value="d">
+                        <label for="q6d">宋代</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题7 -->
+            <div class="question">
+                <h3>7. 下列哪种纹样在掐丝珐琅器上最为常见？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7a" value="a">
+                        <label for="q7a">云龙纹</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7b" value="b">
+                        <label for="q7b">缠枝莲纹</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7c" value="c">
+                        <label for="q7c">八宝纹</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7d" value="d">
+                        <label for="q7d">以上都是</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题8 -->
+            <div class="question">
+                <h3>8. 掐丝珐琅器烧制时，釉料的熔融温度大约是多少？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8a" value="a">
+                        <label for="q8a">500-600°C</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8b" value="b">
+                        <label for="q8b">700-800°C</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8c" value="c">
+                        <label for="q8c">900-1000°C</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8d" value="d">
+                        <label for="q8d">1100-1200°C</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题9 -->
+            <div class="question">
+                <h3>9. 下列哪项不是掐丝珐琅的艺术特点？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9a" value="a">
+                        <label for="q9a">金属质感与釉彩光泽并存</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9b" value="b">
+                        <label for="q9b">色彩鲜艳且永不褪色</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9c" value="c">
+                        <label for="q9c">纹样立体感强</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9d" value="d">
+                        <label for="q9d">可随意弯曲变形</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题10 -->
+            <div class="question">
+                <h3>10. 掐丝珐琅工艺在哪个朝代达到鼎盛？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10a" value="a">
+                        <label for="q10a">唐代</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10b" value="b">
+                        <label for="q10b">宋代</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10c" value="c">
+                        <label for="q10c">明代</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10d" value="d">
+                        <label for="q10d">清代</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题11 -->
+            <div class="question">
+                <h3>11. "点蓝"工序中使用的主要工具是什么？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11a" value="a">
+                        <label for="q11a">蓝枪</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11b" value="b">
+                        <label for="q11b">蓝管</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11c" value="c">
+                        <label for="q11c">蓝铲</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11d" value="d">
+                        <label for="q11d">蓝匙</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题12 -->
+            <div class="question">
+                <h3>12. 掐丝珐琅器最后一道关键工序是什么？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12a" value="a">
+                        <label for="q12a">打磨</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12b" value="b">
+                        <label for="q12b">镀金</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12c" value="c">
+                        <label for="q12c">抛光</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12d" value="d">
+                        <label for="q12d">烧蓝</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题13 -->
+            <div class="question">
+                <h3>13. 下列哪种颜色在传统掐丝珐琅中最为珍贵？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13a" value="a">
+                        <label for="q13a">宝石蓝</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13b" value="b">
+                        <label for="q13b">孔雀绿</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13c" value="c">
+                        <label for="q13c">珊瑚红</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13d" value="d">
+                        <label for="q13d">帝王黄</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题14 -->
+            <div class="question">
+                <h3>14. 掐丝珐琅工艺被列入中国非物质文化遗产是在哪一年？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14a" value="a">
+                        <label for="q14a">2006年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14b" value="b">
+                        <label for="q14b">2008年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14c" value="c">
+                        <label for="q14c">2010年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14d" value="d">
+                        <label for="q14d">2012年</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题15 -->
+            <div class="question">
+                <h3>15. 下列哪座博物馆收藏的掐丝珐琅器最为丰富？</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15a" value="a">
+                        <label for="q15a">北京故宫博物院</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15b" value="b">
+                        <label for="q15b">台北故宫博物院</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15c" value="c">
+                        <label for="q15c">大英博物馆</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15d" value="d">
+                        <label for="q15d">卢浮宫</label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="submit-btn" id="submit">完成测试</button>
+        </div>
+
+        <div class="result-container" id="result">
+            <h2>测试结果</h2>
+            <div class="score">您的得分: <span id="score">0</span>/150</div>
+            <div class="feedback" id="feedback"></div>
+            <button class="restart-btn" id="restart">重新测试</button>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 非物质文化遗产掐丝珐琅 | 作者：梁馨文</p>
+            <p>联系电话: 18302809613 | 邮箱: 3247933299@qq.com</p>
+        </div>
+    </footer>
+    <script>
+        // 正确答案
+        const correctAnswers = {
+            q1: "c", // 古波斯文明
+            q2: "c", // 明代
+            q3: "c", // 镀金银铜丝
+            q4: "d", // 拉坯
+            q5: "d", // 黏土
+            q6: "b", // 明代宣德年间
+            q7: "d", // 以上都是
+            q8: "b", // 700-800°C
+            q9: "d", // 可随意弯曲变形
+            q10: "d", // 清代
+            q11: "a", // 蓝枪
+            q12: "b", // 镀金
+            q13: "a", // 宝石蓝
+            q14: "a", // 2006年
+            q15: "a"  // 北京故宫博物院
+        };
+
+        // 反馈信息
+        const feedbackMessages = [
+            { min: 0, max: 50, message: "您对掐丝珐琅的了解刚刚起步，建议参观故宫博物院或国家工艺美术馆，近距离感受这项传统工艺的魅力。" },
+            { min: 60, max: 90, message: "您对掐丝珐琅有一定认识，但还需深入了解其工艺细节和历史发展，推荐阅读《中国掐丝珐琅艺术》等专业书籍。" },
+            { min: 100, max: 120, message: "您对掐丝珐琅有相当程度的了解，掌握了大部分专业知识和历史背景，可以考虑参加工艺大师的工作坊进一步学习。" },
+            { min: 130, max: 150, message: "太棒了！您对掐丝珐琅的了解非常专业全面，堪称珐琅艺术的行家！" }
+        ];
+
+        // 提交按钮点击事件
+        document.getElementById('submit').addEventListener('click', function() {
+            // 计算得分
+            let score = 0;
+            const questionCount = Object.keys(correctAnswers).length;
+            
+            for (let i = 1; i <= questionCount; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption && selectedOption.value === correctAnswers[`q${i}`]) {
+                    score += 10; // 每题10分，共150分
+                }
+            }
+            
+            // 显示结果
+            document.getElementById('score').textContent = score;
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            
+            // 根据分数显示不同反馈
+            const feedbackElement = document.getElementById('feedback');
+            for (const feedback of feedbackMessages) {
+                if (score >= feedback.min && score <= feedback.max) {
+                    feedbackElement.textContent = feedback.message;
+                    break;
+                }
+            }
+        });
+        
+        // 重新测试按钮
+        document.getElementById('restart').addEventListener('click', function() {
+            // 重置所有选项
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(button => {
+                button.checked = false;
+            });
+            
+            // 显示测试题，隐藏结果
+            document.getElementById('quiz').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+        });
+        
+        // 选项点击效果增强
+        const options = document.querySelectorAll('.option');
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const radioInput = this.querySelector('input[type="radio"]');
+                if (radioInput) {
+                    radioInput.checked = true;
+                    // 移除所有选中样式
+                    options.forEach(opt => {
+                        opt.style.backgroundColor = 'rgba(224, 171, 87, 0.1)';
+                        opt.style.borderColor = 'rgba(224, 171, 87, 0.3)';
+                    });
+                    // 添加选中样式
+                    this.style.backgroundColor = 'rgba(224, 171, 87, 0.3)';
+                    this.style.borderColor = '#e0ab57';
+                }
+            });
+        });
+
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.question');
+            questions.forEach((question, index) => {
+                question.style.opacity = '0';
+                question.style.transform = 'translateY(20px)';
+                question.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    question.style.opacity = '1';
+                    question.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

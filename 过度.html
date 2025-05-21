@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>珐琅艺术</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				background-color: #a4412c;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				flex-direction: column;
+				overflow: hidden;
+			}
+
+			@font-face {
+				font-family: 'Font';
+				src: url('fonts/puomo.ttf') format('truetype');
+			}
+
+			#fangda {
+				font-family: 'Font', sans-serif;
+				padding: 20px;
+				color: #e0ab57;
+				text-align: center;
+				animation: fadeAndScale 2s forwards;
+				z-index: 1000;
+				text-shadow:
+					-1px -1px 0 #fff,
+					1px -1px 0 #fff,
+					-1px 1px 0 #fff,
+					1px 1px 0 #fff;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				background-color: rgba(139, 0, 0, 0.9);
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+			}
+
+			#fangda h1 {
+				font-size: 2.5rem;
+				margin-bottom: 0.5rem;
+			}
+
+			#fangda h2,
+			#fangda h3 {
+				font-size: 1.5rem;
+				margin: 0.3rem 0;
+			}
+
+			@keyframes fadeAndScale {
+				0% {
+					transform: scale(1);
+					opacity: 1;
+				}
+
+				50% {
+					transform: scale(1.5);
+					opacity: 1;
+				}
+
+				100% {
+					transform: scale(1.5);
+					opacity: 0;
+					visibility: hidden;
+				}
+			}
+
+			.background-container {
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				display: flex;
+				transition: all 1s ease;
+			}
+
+			.background-top,
+			.background-bottom {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-size: cover;
+				background-position: center;
+				transition: all 1s ease;
+				position: relative;
+			}
+
+			.background-top {
+				background-image: url('./img/红.jpg');
+			}
+
+			.background-bottom {
+				background-image: url('./img/红.jpg');
+			}
+
+			.background-container p {
+				font-family: 'Font', sans-serif;
+				color: #e0ab57;
+				font-size: 10vw;
+				text-shadow:
+					-2px -2px 0 #996600,
+					2px -2px 0 #996600,
+					-2px 2px 0 #996600,
+					2px 2px 0 #996600;
+				transition: all 1s ease;
+			}
+
+			.shouye {
+				position: fixed;
+				top: 0;
+				width: 100%;
+				background-color: rgba(0, 0, 0, 0.7);
+				border-radius: 10px;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				text-align: left;
+				z-index: 100;
+				padding: 20px 0px 20px 0px;
+				opacity: 0;
+				transition: opacity 0.5s ease;
+				pointer-events: none;
+				transform: translateY(0);
+			}
+
+			.shouye.show {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			nav ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+
+			nav ul li {
+				margin: 0 15px;
+			}
+
+			nav ul li a {
+				color: #e0ab57;
+				text-decoration: none;
+				font-size: 1.2rem;
+				transition: all 0.3s;
+				padding: 5px 10px;
+				border-radius: 5px;
+			}
+
+			nav ul li a:hover {
+				color: #fff;
+				background-color: rgba(224, 171, 87, 0.2);
+			}
+
+			/* 初始分割状态 */
+			.split-mode .background-top {
+				transform: translateY(-100%);
+			}
+
+			.split-mode .background-bottom {
+				transform: translateY(100%);
+			}
+
+			/* 合并状态 */
+			.merge-mode .background-top,
+			.merge-mode .background-bottom {
+				transform: translateY(0);
+			}
+
+			/* 隐藏状态 */
+			.hide-mode .background-top,
+			.hide-mode .background-bottom {
+				opacity: 0;
+			}
+
+			/* 文字隐藏状态 */
+			.text-hide p {
+				opacity: 0;
+			}
+			.zai{
+				padding: 85px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="fangda">
+			<h1>火淬天工处 釉凝万象生</h1>
+			<h2>Fire quenching, nature's work, </h2>
+			<h3>glaze condensation, all things are born.</h3>
+		</div>
+
+		<div class="background-container split-mode">
+			<div class="background-top">
+				<p>掐丝</p>
+			</div>
+			<div class="background-bottom">
+				<p>珐琅</p>
+			</div>
+		</div>
+
+		<div class="shouye">
+			<header>
+				<nav>
+					
+					<ul>
+						<li><a href="过度.html">首页</a></li>
+						<li><a href="历史.html">历史渊源</a></li>
+						<li><a href="制作流程.html">制作流程</a></li>
+						<li><a href="纹样设计.html">纹样设计</a></li>
+						<li><a href="知识测试.html">知识测试</a></li>
+						<li><a href="制作小游戏.html">制作小游戏</a></li>
+					</ul>
+					<ul class="zai">
+						<li><img src="./img/加载.gif" alt="" /></li></ul>
+				</nav>
+			</header>
+		</div>
+
+		<script>
+			// 状态管理
+			let scrollState = 0; // 0:初始 1:合并 2:隐藏 3:显示导航
+			let isAnimating = false;
+
+			// 页面加载后的初始动画
+			window.onload = function() {
+				setTimeout(function() {
+					document.querySelector('.background-container').style.opacity = '1';
+				}, 1000);
+			};
+
+			// 滚动控制
+			document.addEventListener('wheel', function(event) {
+				if (isAnimating) return;
+
+				const delta = Math.sign(event.deltaY);
+				const bgContainer = document.querySelector('.background-container');
+				const shouye = document.querySelector('.shouye');
+
+				// 向下滚动
+				if (delta > 0) {
+					if (scrollState === 0) { // 初始分割 → 合并
+						isAnimating = true;
+						bgContainer.classList.remove('split-mode');
+						bgContainer.classList.add('merge-mode');
+						scrollState = 1;
+						setTimeout(() => {
+							isAnimating = false;
+						}, 1000);
+					} else if (scrollState === 1) { // 合并 → 隐藏文字
+						isAnimating = true;
+						bgContainer.classList.add('text-hide');
+						setTimeout(() => {
+							// 文字隐藏后隐藏背景
+							bgContainer.classList.add('hide-mode');
+							scrollState = 2;
+							setTimeout(() => {
+								isAnimating = false;
+								// 自动触发下一步
+								setTimeout(() => {
+									if (!isAnimating && scrollState === 2) {
+										showNavigation();
+									}
+								}, 500);
+							}, 1000);
+						}, 500);
+					}
+				}
+				// 向上滚动
+				else if (delta < 0) {
+					if (scrollState === 3) { // 显示导航 → 隐藏导航
+						hideNavigation();
+					} else if (scrollState === 2) { // 隐藏 → 显示文字
+						isAnimating = true;
+						bgContainer.classList.remove('hide-mode');
+						setTimeout(() => {
+							bgContainer.classList.remove('text-hide');
+							scrollState = 1;
+							setTimeout(() => {
+								isAnimating = false;
+							}, 500);
+						}, 500);
+					} else if (scrollState === 1) { // 合并 → 分割
+						isAnimating = true;
+						bgContainer.classList.remove('merge-mode');
+						bgContainer.classList.add('split-mode');
+						scrollState = 0;
+						setTimeout(() => {
+							isAnimating = false;
+						}, 1000);
+					}
+				}
+			});
+
+			function showNavigation() {
+				isAnimating = true;
+				scrollState = 3;
+				document.querySelector('.shouye').classList.add('show');
+				setTimeout(() => {
+					isAnimating = false;
+				}, 1000);
+			}
+
+			function hideNavigation() {
+				isAnimating = true;
+				document.querySelector('.shouye').classList.remove('show');
+				setTimeout(() => {
+					scrollState = 2;
+					isAnimating = false;
+				}, 1000);
+			}
+			
+		</script>
+	</body>
+</html>

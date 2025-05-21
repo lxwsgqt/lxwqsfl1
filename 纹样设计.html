@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掐丝珐琅纹样艺术</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background-color: #f8f3e6;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 导航菜单样式 - 参考您提供的样式并改进 */
+        .shouye {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to right, #1a1a1a, #2c1a0a);
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            transform: translateY(0);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        nav ul li a {
+            color: #e0ab57;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav ul li a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            
+            transition: all 0.5s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #fff;
+            background-color: rgba(224, 171, 87, 0.15);
+            transform: translateY(-2px);
+            text-shadow: 0 0 5px rgba(224, 171, 87, 0.7);
+        }
+        
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            padding-top: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 50px;
+        }
+        
+        /* 标题样式 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #8b4513;
+            display: inline-block;
+            padding: 0 20px;
+            background-color: #f8f3e6;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b4513, transparent);
+            z-index: 0;
+        }
+        
+        /* 纹样展示区 */
+        .pattern-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+		
+        }
+        
+        .pattern-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+			border:4px solid #e0ab57;
+			background-color: #1e568a;
+        }
+        
+        .pattern-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+			
+        }
+        
+        .pattern-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+			background-color: white;
+        }
+        
+        .pattern-info {
+            padding: 20px;
+        }
+        
+        .pattern-name {
+            font-size: 1.3rem;
+            color: #c54544;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .pattern-desc {
+            color: #ecad1a;
+			text-shadow:  2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .pattern-era {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #e0ab57;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        /* 特色纹样展示 */
+        .featured-pattern {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 60px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+			border:4px solid #e0ab57;
+			background-color: #1e568a;
+			
+        }
+        
+        .featured-img {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            object-fit: cover;
+			background-color: white;
+        }
+		
+        
+        .featured-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 40px;
+			color: #ecad1a;
+			text-shadow:  2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .featured-title {
+            font-size: 1.8rem;
+            color: #c54544;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .featured-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #e0ab57;
+        }
+        
+        /* 底部样式 */
+        footer {
+            background: linear-gradient(to right, #1a1a1a, #2c1a0a);
+            color: #e0ab57;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 10px;
+            }
+            
+            nav ul li a {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            
+            .pattern-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .featured-pattern {
+                flex-direction: column;
+            }
+            
+            .featured-img {
+                width: 100%;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <div class="shouye">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="过度.html">首页</a></li>
+                    <li><a href="历史.html">历史渊源</a></li>
+                    <li><a href="制作流程.html">制作流程</a></li>
+                    <li><a href="纹样设计.html">纹样设计</a></li>
+                    <li><a href="知识测试.html">知识测试</a></li>
+                    <li><a href="制作小游戏.html">制作小游戏</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- 纹样展示区 -->
+        <section class="pattern-section">
+            <div class="section-title">
+                <h2>传统掐丝珐琅纹样</h2>
+            </div>
+            
+            <div class="pattern-gallery">
+                <!-- 纹样1 -->
+                <div class="pattern-card">
+                    <a href="./云龙纹.html"><img src="./img/云龙纹.gif" alt="云龙纹" class="pattern-img">
+					</a>
+                    <div class="pattern-info">
+                        <h3 class="pattern-name">云龙纹</h3>
+                        <p class="pattern-desc">象征皇权与力量的传统纹样，龙身蜿蜒于云间，展现威严气势。</p>
+                        <span class="pattern-era">明代</span>
+                    </div>
+                </div>
+                
+                <!-- 纹样2 -->
+                <div class="pattern-card">
+                    <a href="缠枝莲纹.html">
+						<img src="./img/缠枝莲纹.gif" alt="缠枝莲纹" class="pattern-img">
+				    </a>
+                    <div class="pattern-info">
+                        <h3 class="pattern-name">缠枝莲纹</h3>
+                        <p class="pattern-desc">枝蔓缠绕，莲花绽放，寓意吉祥如意、生生不息。</p>
+                        <span class="pattern-era">清代</span>
+                    </div>
+                </div>
+                
+                <!-- 纹样3 -->
+                <div class="pattern-card">
+					<a href="八宝纹.html">
+                    <img src="./img/八宝纹.gif" alt="八宝纹" class="pattern-img">
+					</a>
+                    <div class="pattern-info">
+                        <h3 class="pattern-name">八宝纹</h3>
+                        <p class="pattern-desc">佛教八吉祥物组合而成，象征吉祥如意、福寿安康。</p>
+                        <span class="pattern-era">元代</span>
+                    </div>
+                </div>
+                
+                <!-- 纹样4 -->
+                <div class="pattern-card">
+                    <img src="./img/凤穿牡丹.png" alt="凤穿牡丹" class="pattern-img">
+                    <div class="pattern-info">
+                        <h3 class="pattern-name">凤穿牡丹</h3>
+                        <p class="pattern-desc">凤凰与牡丹的组合，象征富贵吉祥、美好姻缘。</p>
+                        <span class="pattern-era">清代</span>
+                    </div>
+                </div>
+                
+                <!-- 纹样5 -->
+                <div class="pattern-card">
+					<a href="海水江崖.html">
+                    <img src="./img/海水江崖.gif" alt="海水江崖" class="pattern-img">
+					</a>
+                    <div class="pattern-info">
+                        <h3 class="pattern-name">海水江崖</h3>
+                        <p class="pattern-desc">波浪与山崖的组合，象征江山永固、万世太平。</p>
+                        <span class="pattern-era">明代</span>
+                    </div>
+                </div>
+                
+                <!-- 纹样6 -->
+                <div class="pattern-card">
+					<a href="夔龙纹.html">
+                    <img src="./img/夔龙纹.gif" alt="夔龙纹" class="pattern-img">
+					</a>
+                    <div class="pattern-info">
+                        <h3 class="pattern-name">夔龙纹</h3>
+                        <p class="pattern-desc">古代传说中的神兽纹样，造型古朴神秘，富有动感。</p>
+                        <span class="pattern-era">宋代</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 特色纹样展示 -->
+        <section class="featured-section">
+            <div class="featured-pattern">
+                <img src="./img/景泰蓝精品纹样.png" alt="精品掐丝珐琅纹样" class="featured-img">
+                <div class="featured-content">
+                    <h2 class="featured-title">景泰蓝精品纹样</h2>
+                    <p>此纹样为明代景泰年间经典设计，融合了传统云纹、缠枝纹与吉祥图案。金丝勾勒精细流畅，釉色饱满艳丽，展现了掐丝珐琅工艺的最高水平。</p>
+                    <p>纹样中心为团龙图案，象征皇权；四周环绕缠枝莲纹，寓意吉祥；边缘装饰连续回纹，代表生生不息。整体构图严谨，色彩对比鲜明，是宫廷艺术的典范之作。</p>
+                    <p>这种纹样多用于宫廷器皿、陈设品制作，现藏于北京故宫博物院，被视为国家级文物珍品。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 非物质文化遗产掐丝珐琅 | 作者：梁馨文</p>
+            <p>联系电话: 18302809613 | 邮箱: 3247933299@qq.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // 导航菜单滚动效果
+        let lastScroll = 0;
+        const navbar = document.querySelector('.shouye');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                navbar.style.transform = 'translateY(0)';
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !navbar.classList.contains('scroll-down')) {
+                // 向下滚动
+                navbar.style.transform = 'translateY(-100%)';
+            } else if (currentScroll < lastScroll && navbar.classList.contains('scroll-down')) {
+                // 向上滚动
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // 图片懒加载
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = [].slice.call(document.querySelectorAll('img.lazy'));
+            
+            if ('IntersectionObserver' in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.remove('lazy');
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            }
+        });
+        
+        // 卡片动画效果
+        const cards = document.querySelectorAll('.pattern-card');
+        
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

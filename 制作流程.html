@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掐丝珐琅制作工艺流程</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif, 'Microsoft YaHei', sans-serif;
+            background-color: #f8f3e6;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 导航菜单样式 */
+        .shouye {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to right, #1a1a1a, #2c1a0a);
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            transform: translateY(0);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        nav ul li a {
+            color: #e0ab57;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav ul li a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            
+            transition: all 0.5s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #fff;
+            background-color: rgba(224, 171, 87, 0.15);
+            transform: translateY(-2px);
+            text-shadow: 0 0 5px rgba(224, 171, 87, 0.7);
+        }
+        
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            max-width: 1200px;
+            margin: 80px auto 50px;
+            padding: 0 20px;
+        }
+        
+        /* 标题样式 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h1 {
+            font-size: 2.8rem;
+            color: #8b4513;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h1::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(to right, #e0ab57, #8b4513, #e0ab57);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: #5c3a21;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 制作流程步骤 */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+        
+        .process-step {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .process-step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .step-container {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 400px;
+        }
+        
+        .step-image-container {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .step-image-container:hover .step-image {
+            transform: scale(1.05);
+        }
+        
+        .step-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e0ab57, #c78c3d);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(224, 171, 87, 0.4);
+        }
+        
+        .step-title {
+            color: #5c3a21;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .step-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #e0ab57, #8b4513);
+        }
+        
+        .step-description {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .step-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #e0ab57, #c78c3d);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            box-shadow: 0 4px 10px rgba(224, 171, 87, 0.3);
+        }
+        
+        .step-link:hover {
+            background: linear-gradient(135deg, #c78c3d, #e0ab57);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(224, 171, 87, 0.4);
+        }
+        
+        /* 交替布局 */
+        .process-step:nth-child(even) .step-container {
+            flex-direction: row-reverse;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .section-title h1 {
+                font-size: 2.2rem;
+            }
+            
+            .step-container {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .step-image-container {
+                min-height: 250px;
+            }
+            
+            .process-step:nth-child(even) .step-container {
+                flex-direction: column;
+            }
+            
+            .step-content {
+                padding: 30px;
+            }
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(to right, #1a1a1a, #2c1a0a);
+            color: #e0ab57;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <div class="shouye">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="过度.html">首页</a></li>
+                    <li><a href="历史.html">历史渊源</a></li>
+                    <li><a href="制作流程.html">制作流程</a></li>
+                    <li><a href="纹样设计.html">纹样设计</a></li>
+                    <li><a href="知识测试.html">知识测试</a></li>
+                    <li><a href="制作小游戏.html">制作小游戏</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="section-title">
+            <h1>掐丝珐琅制作工艺流程</h1>
+            <p>探索千年传统工艺的精湛技艺，了解掐丝珐琅从原材料到艺术品的完整制作过程</p>
+        </div>
+        
+        <div class="process-steps">
+            <!-- 第一步：制胎 -->
+            <div class="process-step" id="step1">
+                <div class="step-container">
+                    <div class="step-image-container">
+                        <img src="./img/制胎.png" alt="制胎工艺" class="step-image">
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">制胎</h3>
+                        <p class="step-description">制胎是掐丝珐琅制作的第一步，工匠根据设计图纸，将铜板锤揲成所需器型，或铸造出基本胎体。胎体要求厚薄均匀，形状规整。传统制胎工艺包括锤揲、铸造、焊接等多种技法，需要工匠具备扎实的金属加工技艺。</p>
+                        <a href="制胎工艺.html" class="step-link">了解详细制胎工艺 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第二步：掐丝 -->
+            <div class="process-step" id="step2">
+                <div class="step-container">
+                    <div class="step-image-container">
+                        <img src="./img/掐丝.png" alt="掐丝工艺" class="step-image">
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">掐丝</h3>
+                        <p class="step-description">将铜丝或金丝按照设计图案掐制成各种形状，用白芨胶粘在胎体上，形成图案轮廓。这是掐丝珐琅最具特色的工艺环节。掐丝工艺要求工匠手法精准，线条流畅，图案对称，每一根金属丝都要恰到好处地贴合胎体。</p>
+                        <a href="掐丝工艺.html" class="step-link">探索掐丝技艺 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第三步：点蓝 -->
+            <div class="process-step" id="step3">
+                <div class="step-container">
+                    <div class="step-image-container">
+                        <img src="./img/点蓝.png" alt="点蓝工艺" class="step-image">
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">点蓝</h3>
+                        <p class="step-description">将各色珐琅釉料填入掐丝形成的格子里，釉料需研磨极细，用蓝枪或蓝管小心填入，要求平整均匀，色彩过渡自然。点蓝是赋予作品生命的关键步骤，工匠需要精准掌握釉料特性和色彩搭配，才能呈现最佳效果。</p>
+                        <a href="点蓝工艺.html" class="step-link">学习点蓝技巧 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第四步：烧蓝 -->
+            <div class="process-step" id="step4">
+                <div class="step-container">
+                    <div class="step-image-container">
+                        <img src="./img/烧蓝.png" alt="烧蓝工艺" class="step-image">
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">烧蓝</h3>
+                        <p class="step-description">将点蓝后的胎体放入窑炉中，在700-800℃高温下烧制，使釉料熔融并与胎体结合。此过程需反复多次，直至釉面饱满平整。烧制过程中需要严格控制温度和时间，稍有偏差就会影响成品质量。</p>
+                        <a href="烧蓝工艺.html" class="step-link">了解烧制要点 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第五步：磨光 -->
+            <div class="process-step" id="step5">
+                <div class="step-container">
+                    <div class="step-image-container">
+                        <img src="./img/抛光.png" alt="磨光工艺" class="step-image">
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">5</div>
+                        <h3 class="step-title">磨光</h3>
+                        <p class="step-description">用粗细不同的磨石逐次打磨珐琅表面，使其平整光滑，然后使用木炭抛光，最后镀金处理金属部分，使作品光彩夺目。磨光工艺需要极大的耐心和细致的手法，既要确保表面平整，又要避免损伤掐丝和釉面。</p>
+                        <a href="磨光工艺.html" class="step-link">查看磨光方法 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第六步：镀金 -->
+            <div class="process-step" id="step6">
+                <div class="step-container">
+                    <div class="step-image-container">
+                        <img src="./img/镀金.png" alt="镀金工艺" class="step-image">
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">6</div>
+                        <h3 class="step-title">镀金</h3>
+                        <p class="step-description">对铜质掐丝部分进行镀金处理，使金属线条金光闪闪，与彩色珐琅相得益彰。传统使用鎏金工艺，现代多采用电镀方法。镀金不仅提升作品的美观度，还能防止金属部分氧化变色，延长艺术品寿命。</p>
+                        <a href="镀金工艺.html" class="step-link">探究镀金工艺 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 非物质文化遗产掐丝珐琅 | 作者：梁馨文</p>
+            <p>联系电话: 18302809613 | 邮箱: 3247933299@qq.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // 导航菜单滚动效果
+        let lastScroll = 0;
+        const navbar = document.querySelector('.shouye');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                navbar.style.transform = 'translateY(0)';
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !navbar.classList.contains('scroll-down')) {
+                // 向下滚动
+                navbar.style.transform = 'translateY(-100%)';
+            } else if (currentScroll < lastScroll && navbar.classList.contains('scroll-down')) {
+                // 向上滚动
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // 步骤卡片动画 - 滚动触发
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.process-step');
+            
+            function checkVisibility() {
+                steps.forEach(step => {
+                    const rect = step.getBoundingClientRect();
+                    const isVisible = (rect.top <= window.innerHeight * 0.8);
+                    
+                    if (isVisible) {
+                        step.classList.add('visible');
+                    }
+                });
+            }
+            
+            // 初始检查
+            checkVisibility();
+            
+            // 滚动时检查
+            window.addEventListener('scroll', checkVisibility);
+        });
+    </script>
+</body>
+</html>
